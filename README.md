@@ -1,2 +1,1 @@
-# project-3-devops
-DevOps repository for Project 3
+# Project 3 DevOps
