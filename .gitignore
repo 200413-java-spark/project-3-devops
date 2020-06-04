@@ -1,6 +1,11 @@
 
-# CSV file
-src/main/resources/Oil_and_Gas_Annual_Production__Beginning_2001.csv
+# CSV files
+src/main/resources/input/
+src/main/resources/output/
+src/test/resources/input/
+src/test/resources/output/
+
+
 
 
 
