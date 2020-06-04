@@ -1,5 +1,6 @@
 
-# CSV files
+# Custom
+src/main/resources/app.properties
 src/main/resources/input/
 src/main/resources/output/
 src/test/resources/input/
