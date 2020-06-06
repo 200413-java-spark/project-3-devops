@@ -1,0 +1,18 @@
+<configuration>
+<property>
+<amazonaws>
+  <property>
+    <name>fs.s3a.endpoint</name>
+    <value>s3-us-east-2.amazonaws.com</value>
+  </property>
+  <property>
+    <name>fs.s3a.access.key</name>
+    <value>AKIA4HA5Y3MYUKWYYHVW</value>
+  </property>
+  <property>
+    <name>fs.s3a.secret.key</name>
+    <value>fr08VjC96k4QdoeE5N89epxhuOB1D6cJzq9YDgHZ</value>
+  </property>
+  </amazonaws>
+</property>
+</configuration>

@@ -5,6 +5,7 @@ src/main/resources/input/
 src/main/resources/output/
 src/test/resources/input/
 src/test/resources/output/
+src/main/java/devops/resources/conf.xml
 
 
 
