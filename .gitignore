@@ -5,8 +5,8 @@ src/main/resources/input/
 src/main/resources/output/
 src/test/resources/input/
 src/test/resources/output/
-src/main/java/devops/resources/conf.xml
-
+src/main/resources/conf.xml
+src/main/resources/Oil_and_Gas_Annual_Production__Beginning_2001.csv
 
 
 
