@@ -9,7 +9,7 @@ Input file (test, small): src/test/resources/input/Oil_and_Gas_Annual_Production
 
 ## Run Main program
 mvn clean compile
-mvn exec:java -Dexec.args="input 4 1"
+mvn exec:java -Dexec.args="input 10 1"
 
 ## Tests
 #### Test properties loader:

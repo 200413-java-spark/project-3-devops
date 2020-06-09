@@ -11,7 +11,7 @@ public class App
         if (option.equals("input")) {
             int lineLimit = Integer.parseInt(args[1]);
             int timeInterval = Integer.parseInt(args[2]) ;
-            String inputFile = "src/test/resources/input/Oil_and_Gas_Annual_Production__Beginning_2001.chronological.very-small.csv";
+            String inputFile = "src/test/resources/input/Oil_and_Gas_Annual_Production__Beginning_2001.chronological.small.csv";
             String outputFile = "data/data.chronological.small.csv";
             InputFileReader fileReader = new InputFileReader();
             fileReader.execute(inputFile, outputFile, lineLimit, timeInterval);
