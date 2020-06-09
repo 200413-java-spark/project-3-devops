@@ -16,7 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- <exec.mainClass>devops.App</exec.mainClass> -->
+    <exec.mainClass>devops.App</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -50,6 +50,15 @@
                   </archive>
               </configuration>
           </plugin>
+          <!-- <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <configuration>
+                <mainClass>devops.App</mainClass>
+                <commandlineArgs>arg1</commandlineArgs>
+            </configuration>
+        </plugin> -->
       </plugins>
   </build>
 
