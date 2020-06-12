@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 public class Streamer {
     public static void main(String[] args) throws Exception {
+        // Provide a source file and specify number of lines to stream a second
         String dataFilePath = args[0];
+        int queueSize = Integer.parseInt(args[1]);
         String configFilePath = "src/main/resources/kafka.properties";
 
         // Kafka producer.
@@ -20,7 +22,7 @@ public class Streamer {
         // Read our csv input data, extract topic, build Kafka message and push to queue.
         ArrayList<String> lines;
 
-        while (!(lines = parser.read(5)).isEmpty()) {
+        while (!(lines = parser.read(queueSize)).isEmpty()) {
             kafkaProducer.send("oil", lines);
 
             // Sleep one second to simulate time delays between incoming of real quotes.

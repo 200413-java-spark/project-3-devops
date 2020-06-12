@@ -14,21 +14,22 @@ import java.util.Map;
 public class Parser {
     // Reader, to keep open.
     CSVReaderHeaderAware reader;
-    ObjectMapper mapper = new ObjectMapper();
+    ObjectMapper jsonMapper = new ObjectMapper();
 
     public Parser(String filePath) throws IOException, CsvValidationException {
         reader = new CSVReaderHeaderAware(new FileReader(filePath));
     }
 
+    // maps from csv to json
     public ArrayList<String> read(int n) throws IOException, CsvValidationException, JsonProcessingException {
-        ArrayList<String> lines = new ArrayList<>();
+        ArrayList<String> linesJson = new ArrayList<>();
         int i = 0;
         Map<String, String> nextLine;
         while (i < n && (nextLine = reader.readMap()) != null) {
-            lines.add(mapper.writeValueAsString(nextLine));
+            linesJson.add(jsonMapper.writeValueAsString(nextLine));
             i++;
         }
-        return lines;
+        return linesJson;
     }
 
     public void close() throws IOException {
