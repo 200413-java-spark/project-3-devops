@@ -1,9 +1,9 @@
 package devops.kafka.producer;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-@Ignore
+@Disabled
 public class InputFileReaderTest {
     
     public static final String inputFile = "src/test/resources/input/Oil_and_Gas_Annual_Production__Beginning_2001.small.csv";
