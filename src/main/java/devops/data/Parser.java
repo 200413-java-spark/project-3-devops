@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-// Our parser class.
+/**
+ * Parser class to read CSV file and convert lines to JSON
+ */
 public class Parser {
   // Reader, to keep open.
   CSVReaderHeaderAware reader;
@@ -20,7 +22,9 @@ public class Parser {
     reader = new CSVReaderHeaderAware(new FileReader(filePath));
   }
 
-  // Maps from csv to json
+  /**
+   * Maps lines from csv to json
+   */
   public ArrayList<String> read(int n)
       throws IOException, CsvValidationException, JsonProcessingException {
     ArrayList<String> linesJson = new ArrayList<>();

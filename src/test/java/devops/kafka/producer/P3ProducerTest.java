@@ -96,30 +96,34 @@ public class P3ProducerTest {
   @Test
   @Order(2)
   public void producerAndConsumerTest() {
-    logger.info("Using Kafka-JUnit5 to test...");
+    try {
+      logger.info("Using Kafka-JUnit5 to test...");
 
-    // send messages to topic
-    List<String> testMsgs = Arrays.asList("foo", "bar", "BLAH");
-    testProducer.send("test", testMsgs);
+      // send messages to topic
+      List<String> testMsgs = Arrays.asList("foo", "bar", "BLAH");
+      testProducer.send("test", testMsgs);
 
-    TopicDescription topicDescription = testKafka.getKafkaTestUtils().describeTopic("test");
-    assertNotNull(topicDescription, "Should return a result");
+      TopicDescription topicDescription = testKafka.getKafkaTestUtils().describeTopic("test");
+      assertNotNull(topicDescription, "Should return a result");
 
-    logger.info("Found topic with name '{}'", topicDescription.name());
+      logger.info("Found topic with name '{}'", topicDescription.name());
 
-    // verifying messages sent with test consumer
-    List<ConsumerRecord<String, String>> recsReceived = testKafka.getKafkaTestUtils()
-        .consumeAllRecordsFromTopic("test", StringDeserializer.class, StringDeserializer.class);
-    assertNotNull(recsReceived, "Should have non-null results");
-    logger.info("Found " + recsReceived.size() + " records");
+      // verifying messages sent with test consumer
+      List<ConsumerRecord<String, String>> recsReceived = testKafka.getKafkaTestUtils()
+          .consumeAllRecordsFromTopic("test", StringDeserializer.class, StringDeserializer.class);
+      assertNotNull(recsReceived, "Should have non-null results");
+      logger.info("Found " + recsReceived.size() + " records");
 
-    for (ConsumerRecord<String, String> rec : recsReceived) {
-      logger.info("Found Key: {} with Value: {}", rec.key(), rec.value());
+      for (ConsumerRecord<String, String> rec : recsReceived) {
+        logger.info("Found Key: {} with Value: {}", rec.key(), rec.value());
+      }
+      List<String> msgsReceived =
+          recsReceived.stream().map(rec -> rec.value()).collect(Collectors.toList());
+
+      assertEquals(testMsgs, msgsReceived);
+    } catch (Exception e) {
+      logger.error("Error at Kafka-JUnit!", e);
     }
-    List<String> msgsReceived =
-        recsReceived.stream().map(rec -> rec.value()).collect(Collectors.toList());
-
-    assertEquals(testMsgs, msgsReceived);
   }
 
   /**
@@ -129,30 +133,34 @@ public class P3ProducerTest {
   @Test
   @Order(3)
   public void mockProducerTest() {
-    logger.info("Using MockProducer to test...");
+    try {
+      logger.info("Using MockProducer to test...");
 
-    // replacing KafkaProducer with MockProducer to get history() method prior to sending
-    testProducer.producer =
-        new MockProducer<String, String>(true, new StringSerializer(), new StringSerializer());
+      // replacing KafkaProducer with MockProducer to get history() method prior to sending
+      testProducer.producer =
+          new MockProducer<String, String>(true, new StringSerializer(), new StringSerializer());
 
-    List<String> testMsgs = Arrays.asList("foo", "bar", "BLAH");
-    testProducer.send("test", testMsgs);
+      List<String> testMsgs = Arrays.asList("foo", "bar", "BLAH");
+      testProducer.send("test", testMsgs);
 
-    // verifying messages sent with MockProducer.history()
-    List<ProducerRecord<String, String>> history =
-        ((MockProducer<String, String>) testProducer.producer).history();
+      // verifying messages sent with MockProducer.history()
+      List<ProducerRecord<String, String>> history =
+          ((MockProducer<String, String>) testProducer.producer).history();
 
-    assertNotNull(history, "Should have produced records");
-    logger.info("Checking producer history...");
-    for (ProducerRecord<String, String> item : history) {
-      logger.info("Sent Value: {} to Topic {}", item.value(), item.topic());
+      assertNotNull(history, "Should have produced records");
+      logger.info("Checking producer history...");
+      for (ProducerRecord<String, String> item : history) {
+        logger.info("Sent Value: {} to Topic {}", item.value(), item.topic());
+      }
+
+      List<ProducerRecord<String, String>> expected =
+          Arrays.asList(new ProducerRecord<String, String>("test", "foo"),
+              new ProducerRecord<String, String>("test", "bar"),
+              new ProducerRecord<String, String>("test", "BLAH"));
+
+      assertEquals(history, expected);
+    } catch (Exception e) {
+      logger.error("Error at MockProducer!", e);
     }
-
-    List<ProducerRecord<String, String>> expected =
-        Arrays.asList(new ProducerRecord<String, String>("test", "foo"),
-            new ProducerRecord<String, String>("test", "bar"),
-            new ProducerRecord<String, String>("test", "BLAH"));
-
-    assertEquals(history, expected);
   }
 }

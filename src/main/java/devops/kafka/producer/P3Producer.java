@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Basic producer to send messages to a Kafka topic
+ */
 public class P3Producer {
   private Properties kafkaProps = new Properties();
   public Producer<String, String> producer;
@@ -19,6 +22,9 @@ public class P3Producer {
     producer = new KafkaProducer<String, String>(kafkaProps);
   }
 
+  /**
+   * Send a list of messages to a topic
+   */
   public void send(String topic, List<String> msgs) {
     for (String msg : msgs) {
       System.out.println("Sending message '" + msg + "' to topic '" + topic + "' at " + new Date());
