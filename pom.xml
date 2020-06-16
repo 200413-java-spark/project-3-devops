@@ -6,7 +6,7 @@
 
   <groupId>com.revature</groupId>
   <artifactId>project-3-devops</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>project-3-devops</name>
   <packaging>jar</packaging>
 
@@ -14,13 +14,18 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <exec.mainClass>devops.App</exec.mainClass>
+    <exec.mainClass>devops.Streamer</exec.mainClass>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka_2.13</artifactId>
+      <version>2.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
       <version>2.5.0</version>
     </dependency>
     <dependency>
@@ -44,9 +49,25 @@
       <version>2.11.0</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.5.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.13.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.13.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.salesforce.kafka.test</groupId>
+      <artifactId>kafka-junit5</artifactId>
+      <version>3.2.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -68,10 +89,15 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>output.Main</mainClass>
+              <mainClass>${exec.mainClass}</mainClass>
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M4</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -81,7 +107,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>devops.Streamer</mainClass>
+              <mainClass>${exec.mainClass}</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

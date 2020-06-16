@@ -1,10 +1,10 @@
 package devops.util;
 
-import org.junit.Test;
-import org.junit.Ignore;
-import static org.junit.Assert.assertFalse;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@Ignore
+@Disabled
 public class AppPropertiesTest {
 
     @Test

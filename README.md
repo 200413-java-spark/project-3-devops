@@ -4,12 +4,13 @@
 
 ```bash
 > mvn clean package
-> java -jar target/project-3-devops-0.0.1-jar-with-dependencies.jar arg0 arg1
+> java -jar target/project-3-devops-0.0.2-jar-with-dependencies.jar OaGAP3.csv 50
 ```
 
-where arg0 = path to csv file from which stream is to be simulated, arg1 = number of messages to send to Producer per second
+where `arg0` = path to csv file from which stream is to be simulated, `arg1` = number of messages to be sent to Producer per second
 
 Only reads from the beginning of the provided file for now and writes to topic "oil".. but at least parses multi-line values within quotes correctly e.g. "New Georeferenced Column":"Ellington, NY\n(42.215868, -79.108075)"
+
 Double-check "bootstrap.servers" value in `src/main/resources/kafka.properties`
 
 

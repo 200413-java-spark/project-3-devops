@@ -1,12 +1,12 @@
 package devops.util;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Connection;
 
-@Ignore
+@Disabled
 public class DatabaseUtilTest {
 
     @Test
