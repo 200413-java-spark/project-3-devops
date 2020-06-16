@@ -11,9 +11,9 @@ public class Streamer {
     // Provide a source file and specify number of lines to stream a second
     String dataFilePath = args[0];
     int queueSize = Integer.parseInt(args[1]);
-    
+
     // Kafka producer.
-    String configFilePath = Streamer.class.getClassLoader().getResource("kafka.properties").getFile();
+    String configFilePath = "src/main/resources/kafka.properties";
     P3Producer kafkaProducer = new P3Producer(configFilePath);
 
     // Data parser.

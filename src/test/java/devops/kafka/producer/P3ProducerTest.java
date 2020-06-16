@@ -44,8 +44,7 @@ public class P3ProducerTest {
   public static void init() {
     try {
       // load properties
-      String kafkaConfigFilepath =
-          P3ProducerTest.class.getClassLoader().getResource("kafka.properties").getFile();
+      String kafkaConfigFilepath = P3ProducerTest.class.getResource("/kafka.properties").getFile();
       logger.info("Resources path! " + kafkaConfigFilepath);
 
       Properties testProps = new Properties();
