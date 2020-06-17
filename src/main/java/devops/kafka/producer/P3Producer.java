@@ -4,7 +4,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +16,8 @@ public class P3Producer {
   private Properties kafkaProps = new Properties();
   public Producer<String, String> producer;
 
-  public P3Producer(String configFilePath) throws IOException {
-    kafkaProps.load(new FileInputStream(configFilePath));
+  public P3Producer(String configFile) throws IOException {
+    kafkaProps.load(getClass().getClassLoader().getResourceAsStream(configFile));
     producer = new KafkaProducer<String, String>(kafkaProps);
   }
 

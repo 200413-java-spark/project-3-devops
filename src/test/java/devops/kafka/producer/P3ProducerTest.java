@@ -18,6 +18,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileReader;
@@ -52,9 +53,8 @@ public class P3ProducerTest {
 
       // need to set properties to connect to test server, but defaultconfig builder is protected
       // method for some reason, so doing unsafe reflection stuff to override access
-      Class[] params = null;
       Method buildDefault = testKafka.getKafkaTestUtils().getClass()
-          .getDeclaredMethod("buildDefaultClientConfig", params);
+          .getDeclaredMethod("buildDefaultClientConfig", (Class[]) null);
       buildDefault.setAccessible(true);
       Map<String, Object> defaultTestConfig =
           (Map<String, Object>) buildDefault.invoke(testKafka.getKafkaTestUtils(), (Object[]) null);
@@ -73,9 +73,10 @@ public class P3ProducerTest {
       // since p3producer class loads config file in constructor, we create a temp config file
       String testConfigFilepath = kafkaConfigFilepath.replace("kafka", "test");
       testProps.store(new FileWriter(new File(testConfigFilepath)), "test kafka props");
+      logger.info("Updated config file path! " + testConfigFilepath);
 
       // finally initiating producer to run on test kafka env
-      testProducer = new P3Producer(testConfigFilepath);
+      testProducer = new P3Producer("test.properties");
     } catch (Exception e) {
       logger.error("error", e);
     }
@@ -86,7 +87,7 @@ public class P3ProducerTest {
   public void testInitialization() {
     assertNotNull(testKafka);
     assertNotNull(testProducer);
-    logger.info("test kafka server and producer running...");
+    logger.info("Test kafka server and producer running...");
   }
 
   /**
@@ -122,6 +123,7 @@ public class P3ProducerTest {
       assertEquals(testMsgs, msgsReceived);
     } catch (Exception e) {
       logger.error("Error at Kafka-JUnit!", e);
+      fail(e.getMessage());
     }
   }
 
@@ -160,6 +162,7 @@ public class P3ProducerTest {
       assertEquals(history, expected);
     } catch (Exception e) {
       logger.error("Error at MockProducer!", e);
+      fail(e.getMessage());
     }
   }
 }

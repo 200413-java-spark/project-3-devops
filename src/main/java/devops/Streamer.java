@@ -13,8 +13,8 @@ public class Streamer {
     int queueSize = Integer.parseInt(args[1]);
 
     // Kafka producer.
-    String configFilePath = "src/main/resources/kafka.properties";
-    P3Producer kafkaProducer = new P3Producer(configFilePath);
+    String configFile = "kafka.properties";
+    P3Producer kafkaProducer = new P3Producer(configFile);
 
     // Data parser.
     Parser parser = new Parser(dataFilePath);
